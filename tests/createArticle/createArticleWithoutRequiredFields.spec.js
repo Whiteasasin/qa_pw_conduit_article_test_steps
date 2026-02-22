@@ -38,17 +38,14 @@ test('Creat an article without required fields', async () => {
 });
 
 test('Create an article with all fields', async () => {
-  await homePage.clickNewArticleLink();
-
-  await createArticlePage.fillTitle(faker.lorem.sentence());
+  const title = "Test title";
+  await createArticlePage.fillTitle(title);
   await createArticlePage.fillDescription(faker.lorem.words());
   await createArticlePage.fillBody(faker.lorem.text());
   await createArticlePage.fillTag(faker.lorem.word());
 
   await createArticlePage.clickPublishArticleButton();
-
-  await createArticlePage.clickPublishArticleButton();
-  await createArticlePage.assertArticleCreated();
+  await createArticlePage.assertArticleCreated(title);
 });
 
 
@@ -78,14 +75,17 @@ test('Create article without body', async () => {
 });
 
 
-test('Create article without tag', async () => {
-  await createArticlePage.fillTitle('Test title');
+test('Create article without tag (tag is optional)', async () => {
+  const title = 'Test title';
+  await createArticlePage.fillTitle(title);
   await createArticlePage.fillDescription('Test description');
   await createArticlePage.fillBody('Test body');
 
   await createArticlePage.clickPublishArticleButton();
 
-  await createArticlePage.assertArticleCreated();
+  await createArticlePage.assertArticleCreated(title);
+  // Tag field is optional in Conduit app,
+  // so article should be created successfully without it.
 });
 
 

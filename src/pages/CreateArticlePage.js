@@ -10,7 +10,7 @@ export class CreateArticlePage {
     this.articleTitle = page.getByPlaceholder('Article Title');
     this.articleDescriptionField = page.getByPlaceholder(
       'What\'s this article about?')
-    this.articleBodyField = page.getByPlaceholder('Write your article (in');
+    this.articleBodyField = page.locator('textarea');;
     this.articleTagField = page.getByPlaceholder('Enter tags');
   }
 
@@ -51,12 +51,17 @@ export class CreateArticlePage {
     });
   }
 
-  async assertArticleCreated() {
+  
+  async assertArticleCreated(expectedTitle) {
     await test.step('Assert article was created', async () => {
       await expect(this.page).toHaveURL(/article/);
+      await expect(
+        this.page.getByRole('heading', { level: 1 })
+      ).toContainText(expectedTitle);
     });
   }
 
+  
 
 }
 
