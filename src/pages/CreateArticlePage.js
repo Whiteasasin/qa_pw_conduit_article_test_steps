@@ -7,6 +7,11 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.articleTitle = page.getByPlaceholder('Article Title');
+    this.articleDescriptionField = page.getByPlaceholder(
+      'What\'s this article about?')
+    this.articleBodyField = page.getByPlaceholder('Write your article (in');
+    this.articleTagField = page.getByPlaceholder('Enter tags');
   }
 
   async clickPublishArticleButton() {
@@ -20,4 +25,33 @@ export class CreateArticlePage {
       await expect(this.errorMessage).toContainText(messageText);
     });
   }
+
+  async fillTitle(title) {
+    await test.step(`Fill title field`, async () => {
+      await this.articleTitle.fill(title);
+    });
+  }
+  
+  async fillDescription(description) {
+    await test.step(`Fill description field`, async () => {
+      await this.articleDescriptionField.fill(description);
+    });
+  }
+
+  async fillBody(body) {
+    await test.step(`Fill body field`, async () => {
+      await this.articleBodyField.fill(body);
+    });
+  }
+
+  async fillTag(tag) {
+    await test.step(`Fill tag field`, async () => {
+      await this.articleTagField.fill(tag);
+      await this.page.keyboard.press('Enter');
+    });
+  }
+
+
+
 }
+

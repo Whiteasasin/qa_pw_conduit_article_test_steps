@@ -34,3 +34,16 @@ test('Creat an article without required fields', async () => {
     'Article title cannot be empty',
   );
 });
+
+test('Create an article with all fields', async () => {
+  await homePage.clickNewArticleLink();
+
+  await createArticlePage.fillTitle(faker.lorem.sentence());
+  await createArticlePage.fillDescription(faker.lorem.words());
+  await createArticlePage.fillBody(faker.lorem.text());
+  await createArticlePage.fillTag(faker.lorem.word());
+
+  await createArticlePage.clickPublishArticleButton();
+
+  
+});
