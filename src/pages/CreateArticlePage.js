@@ -51,6 +51,11 @@ export class CreateArticlePage {
     });
   }
 
+  async assertArticleCreated() {
+    await test.step('Assert article was created', async () => {
+      await expect(this.page).toHaveURL(/article/);
+    });
+  }
 
 
 }
